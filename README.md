@@ -35,5 +35,4 @@ Ensure you have Python installed along with PyTorch and required dependencies.
 
 <img src="https://github.com/yuiolyzm/Selected-Topics-in-Visual-Recognition-using-Deep-Learning/blob/main/img/accuracy_curve.png" alt="drawing" width="500"/>
 
-![image](https://github.com/yuiolyzm/Selected-Topics-in-Visual-Recognition-using-Deep-Learning/blob/main/img/accuracy_curve.png)
-
+<img src="https://github.com/yuiolyzm/Selected-Topics-in-Visual-Recognition-using-Deep-Learning/blob/main/img/training_curve.png" alt="drawing" width="500"/>
