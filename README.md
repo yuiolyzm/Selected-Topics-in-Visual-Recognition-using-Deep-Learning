@@ -1,6 +1,7 @@
-# Selected-Topics-in-Visual-Recognition-using-Deep-Learning
+# NYCU Selected Topics in Visual Recognition using Deep Learning 2025 Spring HW1
 
-# Image Classification with ResNeXt50 and Focal Loss
+StudentID: 110550129
+Name: 姚咨妙
 
 ## Introduction
 This project focuses on classifying images of 100 different plant and animal species using deep learning. Due to the imbalanced nature of the dataset, special loss functions such as **class weighting** and **focal loss** are explored to improve model performance. The model used is **ResNeXt50-32x4d**, which offers better performance under parameter constraints. Various hyperparameter tuning strategies, data augmentation techniques, and loss functions are tested to optimize accuracy.
