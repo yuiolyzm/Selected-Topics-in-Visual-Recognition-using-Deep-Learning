@@ -205,8 +205,9 @@ def train_and_validate(model, train_loader, val_loader, device, lr=0.0007,
             break
         
         scheduler.step(avg_val_loss)
-        print(f"Epoch {epoch+1}, lr: {', '.join([f'{lr:.6f}' 
-              for lr in scheduler.get_last_lr()])}")
+        print(f"Epoch {epoch+1}, "
+              f"lr: {', '.join([f'{lr:.6f}' for lr in scheduler.get_last_lr()])}"
+        )
 
     plot_training_curve(train_losses, val_losses, val_accuracies)
 
