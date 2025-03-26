@@ -11,7 +11,7 @@ This project focuses on classifying images of 100 different plant and animal spe
 To set up and run this project, follow these steps:
 
 ### Prerequisites
-Ensure you have Python installed along with PyTorch and required dependencies.
+Ensure you have installed Python 3.11.
 
 ### Steps
 1. Download or git clone this project
