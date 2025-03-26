@@ -33,5 +33,5 @@ Ensure you have Python installed along with PyTorch and required dependencies.
 
 ## Performance Snapshot
 
-
+![image](https://github.com/yuiolyzm/Selected-Topics-in-Visual-Recognition-using-Deep-Learning/tree/main/img =50%)
 
