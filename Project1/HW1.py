@@ -12,7 +12,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
-""" 14 """
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Custom Dataset for Test Images
@@ -38,7 +37,9 @@ def get_transforms():
         transforms.RandomResizedCrop(400),
         transforms.RandomHorizontalFlip(),
         transforms.RandomRotation(15),
-        transforms.ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1),
+        transforms.ColorJitter(
+            brightness=0.2, contrast=0.2, saturation=0.2, hue=0.1
+        ),
         transforms.ToTensor(),
         transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
     ])
@@ -58,15 +59,19 @@ def get_dataloaders(train_transform, val_test_transform, batch_size=128):
     dataset_val = datasets.ImageFolder(val_dir, transform=val_test_transform)
     test_dataset = TestDataset(test_dir, transform=val_test_transform)
 
-    train_loader = data.DataLoader(dataset_train, batch_size=batch_size, shuffle=True, num_workers=32)
-    val_loader = data.DataLoader(dataset_val, batch_size=batch_size, shuffle=False, num_workers=32)
+    train_loader = data.DataLoader(
+        dataset_train, batch_size=batch_size, shuffle=True, num_workers=32
+    )
+    val_loader = data.DataLoader(
+        dataset_val, batch_size=batch_size, shuffle=False, num_workers=32
+    )
     test_loader = data.DataLoader(test_dataset, batch_size=1, shuffle=False)
+
     return train_loader, val_loader, test_loader
 
 def get_model(num_classes=100):
     model = resnext50_32x4d(weights="IMAGENET1K_V1")
     model.fc = nn.Linear(model.fc.in_features, num_classes)
-    # model.fc = nn.Linear(2048, num_classes)
     return model
 
 def compute_class_weights(dataset):
@@ -76,7 +81,6 @@ def compute_class_weights(dataset):
     return class_weights / class_weights.sum()
 
 
-# Focal Loss
 class FocalLoss(nn.Module):
     def __init__(self, alpha=1, gamma=2, reduction="mean"):
         super(FocalLoss, self).__init__()
@@ -126,9 +130,11 @@ def plot_training_curve(train_losses, val_losses, val_accuracies):
     plt.grid(True)
     plt.savefig("accuracy_curve_129.png")
 
-def train_and_validate(model, train_loader, val_loader, device, lr=0.0007, num_epochs=50, patience=7, use_focal_loss=False):
+def train_and_validate(model, train_loader, val_loader, device, lr=0.0007, 
+                       num_epochs=50, patience=7, use_focal_loss=False):
     optimizer = optim.AdamW(model.parameters(), lr=lr)
-    scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.4, patience=5)
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(
+        optimizer, mode='min', factor=0.4, patience=5)
 
     train_dataset = train_loader.dataset
     # criterion = get_loss_function(train_dataset, use_focal_loss=use_focal_loss)
@@ -181,7 +187,10 @@ def train_and_validate(model, train_loader, val_loader, device, lr=0.0007, num_e
         val_losses.append(avg_val_loss)
         accuracy = correct / total
         val_accuracies.append(accuracy) 
-        print(f"Epoch {epoch+1}, Validation Loss: {avg_val_loss:.4f}, Accuracy: {accuracy:.4f}")
+        print(
+            f"Epoch {epoch+1}, Validation Loss: {avg_val_loss:.4f}, "
+            f"Accuracy: {accuracy:.4f}"
+        )
 
         if avg_val_loss < best_val_loss:
             best_val_loss = avg_val_loss
@@ -196,7 +205,8 @@ def train_and_validate(model, train_loader, val_loader, device, lr=0.0007, num_e
             break
         
         scheduler.step(avg_val_loss)
-        print(f"Epoch {epoch+1}, lr: {', '.join([f'{lr:.6f}' for lr in scheduler.get_last_lr()])}")
+        print(f"Epoch {epoch+1}, lr: {', '.join([f'{lr:.6f}' 
+              for lr in scheduler.get_last_lr()])}")
 
     plot_training_curve(train_losses, val_losses, val_accuracies)
 
@@ -230,9 +240,13 @@ def test_and_save_predictions(model, test_loader, device, mapping):
 
 def main():
     train_transform, val_test_transform = get_transforms()
-    train_loader, val_loader, test_loader = get_dataloaders(train_transform, val_test_transform, batch_size=128)
+    train_loader, val_loader, test_loader = get_dataloaders(train_transform, 
+                                                            val_test_transform, batch_size=128)
     model = get_model(num_classes=100)
-    train_and_validate(model, train_loader, val_loader, device, lr=0.0007, num_epochs=50, patience=10, use_focal_loss=True)
+    train_and_validate(
+        model, train_loader, val_loader, device, 
+        lr=0.0007, num_epochs=50, patience=10, use_focal_loss=True
+    )
 
     mapping = create_prediction_mapping()
     test_and_save_predictions(model, test_loader, device, mapping)    
