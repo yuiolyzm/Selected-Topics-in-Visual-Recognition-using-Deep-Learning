@@ -32,8 +32,8 @@ Ensure you have Python installed along with PyTorch and required dependencies.
    ```
 
 ## Performance Snapshot
-![training_curve_129_0](https://github.com/user-attachments/assets/c4b6d579-5337-40e8-8ffd-f3f8a54e919e =80%x)
+![training_curve_129_0](https://github.com/user-attachments/assets/c4b6d579-5337-40e8-8ffd-f3f8a54e919e.png =80%x)
 
-![accuracy_curve_129_0](https://github.com/user-attachments/assets/440ed319-aad8-4654-a3fe-09f18b807a93 =200x100)
+![accuracy_curve_129_0](https://github.com/user-attachments/assets/440ed319-aad8-4654-a3fe-09f18b807a93.png =200x100)
 
 
